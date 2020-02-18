@@ -1,4 +1,6 @@
-#include "dnastring.cpp"
+#include <iostream>
+#include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -30,23 +32,18 @@ int main(int charc, char** charv){
     string buffer="";
     while(ifs >> buffer){
       //cout << buffer << endl;
+      toupper(buffer);
       dna+=buffer;
-      // DNAString* d = new DNAString(buffer);
-      // cout << d->getString() << endl;
-      // cout << d->getLength() << endl;
-      // delete d;
+
       linecount++;
     }
     ifs.clear();
-    ifs.seekg(0, ios::beg);
+
+    DNAString* d;
+
 
     while(ifs >> buffer){
-      //toupper(buffer);
-      DNAString* d = new DNAString(buffer , mean, linecount);
-      cout << d->getString() << endl;
-      cout << d->getLength() << endl;
-      cout << d->calculateVariance() << endl;
-      delete d;
+
     }
     //cout << dna << endl;
     mean=(double) dna.size()/linecount;
@@ -54,6 +51,23 @@ int main(int charc, char** charv){
     cout << "sum: " << dna.size() << endl;
     cout << "mean: " << mean << endl;
 
+    int countA=0;
+    int countT=0;
+    int countC=0;
+    int countG=0;
+
+    for(int i=0; i<dna.size();++i){
+      toupper(dna[i]);
+      if(dna[i]=='A'){
+        countA++;
+      }else if(dna[i]=='C'){
+        countC++;
+      }else if(dna[i]=='T'){
+        countT++;
+      }else if(dna[i]=='G'){
+        countG++;
+      }
+    }
 
     //cout << dna.size() << endl;
     // double meanA=(double)countA/dna.size();
