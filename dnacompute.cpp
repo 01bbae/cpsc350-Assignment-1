@@ -24,28 +24,36 @@ int main(int charc, char** charv){
     }
 
     int linecount=0;
+    int sum=0;
     double mean=0.0;
     double variance=0.0;
     string dna="";
     string buffer="";
     while(ifs >> buffer){
-      //cout << buffer << endl;
-      dna+=buffer;
-      // DNAString* d = new DNAString(buffer);
-      // cout << d->getString() << endl;
-      // cout << d->getLength() << endl;
-      // delete d;
       linecount++;
+      dna+=buffer;
+      cout << buffer <<endl;
     }
+    //set input file stream back to the beginning of the file
     ifs.clear();
     ifs.seekg(0, ios::beg);
 
-    while(ifs >> buffer){
-      //toupper(buffer);
-      DNAString* d = new DNAString(buffer , mean, linecount);
+    int count=0;
+    sum=dna.size();
+    //make this unscuffed
+    while(linecount>count){
+      ifs >> buffer;
+      for(int i=0;i<buffer.size();++i){
+        buffer[i]=toupper(buffer[i]);
+      }
+      DNAString* d = new DNAString(buffer, sum, linecount);
       cout << d->getString() << endl;
-      cout << d->getLength() << endl;
-      cout << d->calculateVariance() << endl;
+      cout << "line variance: " << d->calculateLineVariance() << endl;
+      d->addVarianceSum(d->calculateLineVariance());
+      if(count==linecount-1){
+        cout << "Stdev: " << d->calculateStdev() << endl;
+      }
+      count++;
       delete d;
     }
     //cout << dna << endl;

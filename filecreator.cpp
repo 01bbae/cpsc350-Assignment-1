@@ -10,7 +10,7 @@ int main(int argc, char const *argv[]) {
   ofs.open("data.txt");
   for(int i=0;i<10;++i){
     string s="";
-    for(int j=0;j<10;++j){
+    for(int j=0;j<rand()%10+1;++j){
       int random = rand()%8;
       if(random==0){
         s+="A";

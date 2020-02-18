@@ -7,17 +7,25 @@ using namespace std;
 
 class DNAString{
 public:
-  DNAString(string s, double mean, int linecount);
+  DNAString(string s, int sum, int linecount);
   ~DNAString();
 
   //function methods
-  double calculateVariance();
+  double calculateTotalVariance();
+  double calculateLineVariance();
   void addVarianceSum(double variance);
   double calculateStdev();
+  double calculateMean();
   int numA();
   int numC();
   int numG();
   int numT();
+  // double probA();
+  // double probC();
+  // double probG();
+  // double probT();
+  //include biagram prob
+
 
   //getter methods
   int getLength();
@@ -40,6 +48,7 @@ private:
   int length;
 
   //static variables
+  static int sum;
   static double mean;
   static double stdev;
   static double varianceSum;

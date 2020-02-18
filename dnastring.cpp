@@ -6,11 +6,14 @@ double DNAString::mean;
 double DNAString::stdev;
 double DNAString::varianceSum;
 int DNAString::linecount;
+int DNAString::sum;
 
-DNAString::DNAString(string s, double mean, int linecount){
+DNAString::DNAString(string s, int sum, int linecount){
   this->s=s;
-  this->mean=mean;
+  length=s.size();
+  this->sum=sum;
   this->linecount=linecount;
+  mean=calculateMean();
 }
 
 DNAString::~DNAString(){
@@ -19,8 +22,12 @@ DNAString::~DNAString(){
 
 //function methods
 
-double DNAString::calculateVariance(){
-  return sqrt(getLength()-mean);
+double DNAString::calculateTotalVariance(){
+  return varianceSum/linecount;
+}
+
+double DNAString::calculateLineVariance(){
+  return pow(length-mean,2);
 }
 
 void DNAString::addVarianceSum(double variance){
@@ -28,9 +35,12 @@ void DNAString::addVarianceSum(double variance){
 }
 
 double DNAString::calculateStdev(){
-  return sqrt(calculateVariance());
+  return sqrt(calculateTotalVariance());
 }
 
+double DNAString::calculateMean(){
+  return (double) sum/linecount;
+}
 
 int DNAString::numA(){
   int count=0;
@@ -71,6 +81,10 @@ int DNAString::numG(){
   }
   return count;
 }
+
+// double DNAString::probA(){
+//   //return (double)numA()/;
+// }
 
 //getter methods
 
